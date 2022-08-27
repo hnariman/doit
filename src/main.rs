@@ -26,8 +26,7 @@ fn main() -> Result<()> {
 
     // flags validation:
     if app.is_present("list") {
-        // list_items();
-        println!("LIST ALL ITEMS!");
+        db::crud::get_all();
     }
 
     // options validation:
@@ -36,8 +35,7 @@ fn main() -> Result<()> {
     }
 
     if let Some(val) = app.value_of("delete") {
-        let id = val.parse().unwrap();
-        db::crud::delete(id);
+        db::crud::delete(val.trim().parse::<u8>().unwrap());
     }
 
     if let Some(val) = app.value_of("update") {

@@ -52,6 +52,13 @@ pub mod setup {
 
 /* basic CRUD operations */
 pub mod crud {
+    fn parse(data: &str) -> u8 {
+        let result = match data.trim().parse::<u8>() {
+            Ok(i) => i,
+            Err(..) => println!("Error parsing {:?} ", data),
+        };
+        result
+    }
     // const CREATE: &str = "INSERT INTO todo (id, name, created)";
     pub fn create(item: &str) {
         //-> Result<()> {
@@ -63,9 +70,10 @@ pub mod crud {
     }
 
     // const READ  : &str = "SELECT * FROM todo WHERE ID in (?1)";
-    pub fn read(id: u8) {
+    pub fn read(val: &str) {
         // -> Result<()>{
-        println!("READ ITEM: {}", id);
+        let id = parse(val);
+        println!("READ ITEM: {:?}", id);
         // db.execute(READ,(&id))?;
         // Ok(())
     }
@@ -79,8 +87,9 @@ pub mod crud {
     }
 
     // const DELETE: &str = "DELETE FROM todo WHERE ID in (?1) ";
-    pub fn delete(id: u8) {
+    pub fn delete(val: &str) {
         // -> Result<()> {
+        let id: u8 = parse(val);
         println!("DELETE ITEM WITH ID: {}", id);
         // Do we need more than 1 value? - WHERE ID in (1,2,3,4)
         // db.execute(DELETE,(&id))?;
@@ -105,7 +114,6 @@ pub mod crud {
         // data
     }
 }
-
 // pub enum Operations {
 //     Create,
 //     Read,
